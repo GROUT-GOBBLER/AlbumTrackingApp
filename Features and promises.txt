@@ -1,0 +1,18 @@
+Views.
+ - List of stored albums (sorted in alphabetical order).
+ - Enter new album view.
+ - Individual album view.
+	> Allow you to delete entry.
+
+Album data to store.
+ - METADATA.
+ 	> Name.
+ 	> Artist.
+ 	> Genre.
+	> Release year.
+	> Tracklist (?).
+ - MY INPUT.
+	> Rating.
+	> Review.
+ - PROGRAM SPECIFIC STUFF.
+	> Date added.
