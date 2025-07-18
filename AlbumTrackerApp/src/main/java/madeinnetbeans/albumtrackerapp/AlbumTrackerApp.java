@@ -1,13 +1,14 @@
  package madeinnetbeans.albumtrackerapp;
 
-import java.io.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.*;
 import org.json.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.*;
+import java.io.File;
+import java.util.Scanner;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTabbedPane;
  
 /*
  *      Author: GROUT GOBBLER
@@ -16,70 +17,51 @@ import org.json.simple.parser.*;
  *      File Name: AlbumTrackerApp.java
  */
  
+ /*
+    NOTES.
+        Using GUI ... https://www.geeksforgeeks.org/java/introduction-to-java-swing/
+        Parsing JSON ... https://www.youtube.com/watch?v=0nN2stWIHM0
+        Write JSON to file ... https://crunchify.com/how-to-write-json-object-to-file-in-java/
+        Reading JSON from file ... https://www.delftstack.com/howto/java/read-json-file-java/
+            ^ If writing before reading, need to flush and close FileWriter before reading.
+        Delete file ... https://www.w3schools.com/java/java_files_delete.asp
+        Make a button click do something ... https://www.tutorialsfield.com/jbutton-click-event/
+        JFrame ... https://www.geeksforgeeks.org/java/java-jframe/
+        JOptionPane ... https://www.geeksforgeeks.org/java/java-joptionpane/
+        JScrollBar ... https://www.geeksforgeeks.org/java/java-jscrollbar/
+        GridLayout ... https://www.geeksforgeeks.org/java/java-awt-gridlayout-class/
+        JList ... https://www.geeksforgeeks.org/java/java-swing-jlist-with-examples/
+        Check if file exists ... https://stackoverflow.com/questions/1816673/how-do-i-check-if-a-file-exists-in-java
+ */
+
+ 
 public class AlbumTrackerApp {
-    private static FileWriter jsonFile;
-    
+    // Global Variables.
+        private static String file_name = "toBeDeleted.json";
+        private static JLabel code_tester_label;
+        
+        private static JFrame main_window;
+        
+        private static AlbumListView first_tab = new AlbumListView();
+        private static NewAlbumView second_tab = new NewAlbumView();
+        private static SettingsView third_tab = new SettingsView();
+        
     public static void main(String[] args) {
-        // Using GUI ... https://www.geeksforgeeks.org/java/introduction-to-java-swing/
-        // Parsing JSON ... https://www.youtube.com/watch?v=0nN2stWIHM0
-        // Write JSON to file ... https://crunchify.com/how-to-write-json-object-to-file-in-java/
-        // Reading JSON from file ... https://www.delftstack.com/howto/java/read-json-file-java/
-            // ^ If writing before reading, need to flush and close FileWriter before reading.
-        
-        JSONObject albumObject = new JSONObject();
-            albumObject.put("Name", "yea I think");
-            albumObject.put("Artist", "cr1tter");
-            albumObject.put("Genre", "Cloud Rap");
-            albumObject.put("Release Year", "2024");
-            
-            JSONArray trackList = new JSONArray();
-                trackList.add("Song: dolce & gabbana");
-                trackList.add("Song: etch a sketch");
-                trackList.add("Song: rob dyrdek");
-                trackList.add("Song: beans");
-                trackList.add("Song: now i rlly kno");
-                trackList.add("Song: bella thorne");
-                trackList.add("Song: fall out");
-                trackList.add("Song: pls dont forget me");
-            albumObject.put("Track List", trackList);
-            
-            albumObject.put("Rating", "?/5");
-            albumObject.put("Review", "Haven't listened to it yet.");
-            albumObject.put("Date Added", "7/14/2025");
-        
-        try {
-            jsonFile = new FileWriter("jsonTest.json");
-            jsonFile.write(albumObject.toJSONString());
-        }
-        catch(Exception e) {
-            System.out.println("An exception occured while trying to create / write to the file.");
-            return;
-        }
-        
-        try {
-            jsonFile.flush();
-            jsonFile.close();
-        } catch (IOException ex) {
-            System.out.println("Failed at flush / close step.");
-            return;
-        }
-        
-        FileReader file_reader;
-        JSONObject album_object_from_file;
-        
-        try {
-            file_reader = new java.io.FileReader("jsonTest.json");
-            JSONParser parser = new JSONParser();
-            album_object_from_file = (JSONObject) parser.parse(file_reader);
-        } catch (Exception ex) {
-            System.out.println("Exception at file reader. " + ex);
-            return;
-        }
-        
-        String name_test = (String) album_object_from_file.get("Name");
-        
-        System.out.println("Name ... " + name_test);
-        
-        System.out.println("Program end.");
+        SetupFrame();
+    }
+    
+    public static void SetupFrame() {
+        main_window = new JFrame("Album Tracker App");
+                main_window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                main_window.setSize(800, 500);
+
+        JTabbedPane panel_of_tabs = new JTabbedPane(JTabbedPane.LEFT);
+
+        panel_of_tabs.addTab("View All.", first_tab);
+        panel_of_tabs.addTab("New Album Entry.", second_tab);
+        panel_of_tabs.addTab("Settings.", third_tab);
+
+        main_window.add(panel_of_tabs);
+        main_window.setVisible(true);
     }
 }
