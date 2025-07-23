@@ -3,6 +3,9 @@ package madeinnetbeans.albumtrackerapp;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.FileWriter;
+import org.json.simple.JSONArray;
 
 /*
  *      Author: GROUT GOBBLER
@@ -14,11 +17,10 @@ import java.awt.event.*;
 public class SettingsView extends JPanel implements ActionListener {
     JButton delete_button;
     JLabel delete_label;
-    JLabel testing_code_label;
+    private String file_name = "User-Saved-Data.json";
     
     public SettingsView() {
         delete_label = new JLabel("Deletes all of your saved data.");
-        testing_code_label = new JLabel("Nothing much is happening.");
         delete_button = new JButton("Delete.");
             delete_button.addActionListener(this);
         
@@ -28,12 +30,17 @@ public class SettingsView extends JPanel implements ActionListener {
         
         setLayout(new BorderLayout());
         add(button_and_label_delete, BorderLayout.CENTER);
-        add(testing_code_label, BorderLayout.SOUTH);
     }
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        testing_code_label.setText("Something happened.");
-        JOptionPane.showMessageDialog(null, "Saved data has been deleted.", "Sucess", JOptionPane.INFORMATION_MESSAGE);
+        File file_to_be_deleted = new File(file_name);
+        if (!file_to_be_deleted.exists()) {
+            JOptionPane.showMessageDialog(null, "No saved data exists.", "Failure", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else {
+            file_to_be_deleted.delete();
+            JOptionPane.showMessageDialog(null, "Saved data has been deleted.", "Sucess", JOptionPane.INFORMATION_MESSAGE);
+        } 
     }
 }

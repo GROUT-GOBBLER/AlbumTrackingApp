@@ -1,14 +1,6 @@
  package madeinnetbeans.albumtrackerapp;
 
-import org.json.*;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.*;
-import java.io.File;
-import java.util.Scanner;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JTabbedPane;
+import javax.swing.*;
  
 /*
  *      Author: GROUT GOBBLER
