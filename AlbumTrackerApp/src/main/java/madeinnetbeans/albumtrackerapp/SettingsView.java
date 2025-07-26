@@ -1,11 +1,9 @@
 package madeinnetbeans.albumtrackerapp;
 
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 import java.io.File;
-import java.io.FileWriter;
-import org.json.simple.JSONArray;
+import javax.swing.*;
+import java.awt.event.*;
 
 /*
  *      Author: GROUT GOBBLER
